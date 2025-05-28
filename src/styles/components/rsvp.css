@@ -1,0 +1,58 @@
+/* RSVP Section */
+.rsvp-section {
+  padding: var(--spacing-xl) var(--spacing-md);
+  background: var(--gradient-pink);
+  text-align: center;
+  position: relative;
+  z-index: var(--z-content);
+}
+
+.rsvp-title {
+  font-family: var(--font-script);
+  font-size: var(--font-3xl);
+  color: var(--white);
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.rsvp-form {
+  max-width: 500px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.9);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-large);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.submit-btn {
+  background: var(--gradient-secondary);
+  color: var(--white);
+  padding: 15px var(--spacing-lg);
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: var(--font-md);
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform var(--transition-normal);
+  box-shadow: var(--shadow-large);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin: 0 auto;
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+} 

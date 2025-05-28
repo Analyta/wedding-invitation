@@ -1,0 +1,39 @@
+/* Music Control Component */
+.music-control {
+  position: fixed;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  z-index: var(--z-fixed);
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.music-btn, .volume-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-medium);
+  transition: all var(--transition-normal);
+  color: var(--accent-color);
+  font-size: var(--font-lg);
+}
+
+.music-btn:hover, .volume-btn:hover {
+  transform: scale(1.1);
+}
+
+.music-btn:active, .volume-btn:active {
+  transform: scale(0.9);
+}
+
+.music-btn.playing {
+  background: var(--gradient-secondary);
+  color: var(--white);
+  animation: musicPulse 1s infinite;
+} 

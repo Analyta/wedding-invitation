@@ -1,0 +1,141 @@
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 2.5rem;
+  }
+  
+  .couple-photos {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .couple-photo {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .timeline-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .timeline-time {
+    margin-right: 0;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .countdown-timer {
+    gap: var(--spacing-sm);
+  }
+
+  .time-unit {
+    min-width: 50px;
+    padding: 8px var(--spacing-sm);
+  }
+
+  .time-number {
+    font-size: var(--font-lg);
+  }
+
+  .guest-book-container {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .music-control {
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+  }
+
+  .music-btn, .volume-btn {
+    width: 40px;
+    height: 40px;
+    font-size: var(--font-sm);
+  }
+
+  .quote-text {
+    font-size: var(--font-md);
+  }
+
+  .photo-frame {
+    padding: var(--spacing-md);
+    min-height: 400px;
+  }
+
+  .photo-booth-title, .map-title {
+    font-size: var(--font-2xl);
+  }
+
+  .map-content {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .venue-info-grid {
+    gap: var(--radius-medium);
+  }
+
+  .photo-display {
+    height: 250px;
+  }
+
+  .action-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+
+  /* Spacing adjustments for mobile */
+  .section {
+    padding: 60px var(--spacing-md);
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--radius-medium);
+  }
+
+  .timeline-title,
+  .gallery-title,
+  .guest-book-title,
+  .rsvp-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-title {
+    font-size: var(--font-2xl);
+  }
+
+  .date-venue {
+    padding: var(--radius-medium) var(--spacing-md);
+  }
+
+  .couple-photo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .timeline-title,
+  .gallery-title,
+  .guest-book-title,
+  .rsvp-title,
+  .photo-booth-title,
+  .map-title {
+    font-size: var(--font-2xl);
+  }
+
+  .photo-frame {
+    padding: var(--radius-medium);
+    min-height: 350px;
+  }
+
+  .photo-display {
+    height: 200px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}

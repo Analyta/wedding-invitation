@@ -1,70 +1,278 @@
-# Getting Started with Create React App
+# 💕 Thiệp Cưới Online - Wedding Invitation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Một thiệp cưới online đẹp mắt với hiệu ứng đặc biệt và tương tác phong phú, được tạo bằng React.
 
-## Available Scripts
+## ✨ Tính Năng Nổi Bật
 
-In the project directory, you can run:
+### 🎭 Hiệu Ứng Visual
+- **Floating Hearts**: Trái tim bay lơ lửng
+- **Petals Effect**: Hiệu ứng cánh hoa rơi
+- **Balloons Effect**: Bóng bay và confetti
+- **Scroll Sparkles**: Lấp lánh khi cuộn trang
+- **Scroll Animations**: Hiệu ứng mượt mà khi cuộn
+- **Fireworks**: Pháo hoa khi chụp ảnh
 
-### `npm start`
+### 🎵 Âm Thanh & Nhạc
+- Điều khiển phát/dừng nhạc nền
+- Điều khiển âm lượng
+- Nhạc lặp lại tự động
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 📸 Photo Booth Thông Minh
+- Tạo khung ảnh kỷ niệm với thông tin đám cưới
+- Tải xuống ảnh đã tạo
+- Chia sẻ lên mạng xã hội (Facebook, Instagram)
+- Hiệu ứng chụp ảnh chân thực
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🗺️ Bản Đồ Địa Điểm
+- Google Maps tích hợp
+- Thông tin chi tiết địa điểm
+- Nút chỉ đường trực tiếp
+- Thông tin liên hệ venue
 
-### `npm test`
+### 📝 Tương Tác Khách Mời
+- **Countdown Timer**: Đếm ngược thời gian
+- **Love Quotes**: Slideshow câu nói tình yêu
+- **Guest Book**: Sổ lưu bút trực tuyến
+- **RSVP Form**: Xác nhận tham dự
+- **Gallery**: Thư viện ảnh đẹp
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 📱 Responsive Design
+- Tương thích mọi thiết bị
+- Tối ưu cho mobile
+- Hiệu ứng mượt mà
 
-### `npm run build`
+## 🚀 Cài Đặt
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Yêu Cầu Hệ Thống
+- Node.js (v14 hoặc cao hơn)
+- npm hoặc yarn
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Bước 1: Clone Project
+```bash
+git clone [your-repo-url]
+cd wedding-invitation
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Bước 2: Cài Đặt Dependencies
+```bash
+npm install
+```
 
-### `npm run eject`
+### Bước 3: Chạy Development Server
+```bash
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Website sẽ mở tại `http://localhost:3000`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🎨 Tùy Chỉnh Thiệp Cưới
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 1. Thông Tin Cơ Bản
+Chỉnh sửa file `src/App.js`:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```javascript
+// Thay đổi tên cô dâu chú rể
+<h1 className="main-title">Tên Chú Rể & Tên Cô Dâu</h1>
 
-## Learn More
+// Thay đổi ngày cưới
+const WEDDING_DATE = new Date('2024-12-15T14:00:00');
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+// Thay đổi địa điểm
+<div className="venue">
+  <FaMapMarkerAlt /> Địa chỉ của bạn
+</div>
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 2. Thay Đổi Ảnh
+Thay thế các URL ảnh demo:
 
-### Code Splitting
+```javascript
+// Ảnh cô dâu chú rể
+const DEMO_BRIDE_IMAGE = "URL_ảnh_cô_dâu";
+const DEMO_GROOM_IMAGE = "URL_ảnh_chú_rể";
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+// Ảnh gallery
+const DEMO_GALLERY_IMAGES = [
+  "URL_ảnh_1",
+  "URL_ảnh_2",
+  // ... thêm ảnh
+];
+```
 
-### Analyzing the Bundle Size
+### 3. Thay Đổi Bản Đồ
+Chỉnh sửa `src/components/WeddingMap.js`:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```javascript
+const venueInfo = {
+  name: "Tên địa điểm của bạn",
+  address: "Địa chỉ đầy đủ",
+  phone: "Số điện thoại", 
+  coordinates: {
+    lat: 10.7769, // Latitude thực tế
+    lng: 106.7009 // Longitude thực tế
+  }
+};
+```
 
-### Making a Progressive Web App
+### 4. Thêm Nhạc Nền
+Đặt file nhạc vào thư mục `public/music/` và cập nhật:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```javascript
+// Trong src/components/MusicControl.js
+const audio = new Audio('/music/wedding-song.mp3');
+```
 
-### Advanced Configuration
+### 5. Tùy Chỉnh Màu Sắc
+Chỉnh sửa `src/App.css`:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```css
+/* Thay đổi màu chủ đạo */
+:root {
+  --primary-color: #ff6b9d;
+  --secondary-color: #ffecd2;
+  --accent-color: #d4a574;
+}
+```
 
-### Deployment
+### 6. Thêm/Sửa Câu Nói Tình Yêu
+```javascript
+const LOVE_QUOTES = [
+  "Câu nói tình yêu của bạn 1",
+  "Câu nói tình yêu của bạn 2",
+  // ... thêm câu nói
+];
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🎯 Cấu Trúc Project
 
-### `npm run build` fails to minify
+```
+wedding-invitation/
+├── public/
+│   ├── index.html
+│   └── music/ (đặt file nhạc ở đây)
+├── src/
+│   ├── components/
+│   │   ├── MusicControl.js      # Điều khiển nhạc
+│   │   ├── VisualEffects.js     # Hiệu ứng visual
+│   │   ├── ScrollAnimations.js  # Hiệu ứng scroll
+│   │   ├── WeddingMap.js       # Bản đồ địa điểm
+│   │   └── PhotoBooth.js       # Photo booth
+│   ├── App.js                  # Component chính
+│   ├── App.css                # Styles chính
+│   └── index.js               # Entry point
+└── package.json
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🚀 Deploy Website
+
+### Option 1: Netlify (Đơn Giản Nhất)
+1. Build project: `npm run build`
+2. Đăng ký tài khoản [Netlify](https://netlify.com)
+3. Kéo thả thư mục `build` vào Netlify
+4. Website sẽ có URL tự động
+
+### Option 2: Vercel
+1. Cài đặt Vercel CLI: `npm i -g vercel`
+2. Chạy: `vercel`
+3. Làm theo hướng dẫn
+
+### Option 3: GitHub Pages
+1. Cài đặt: `npm install --save-dev gh-pages`
+2. Thêm vào `package.json`:
+```json
+{
+  "homepage": "https://yourusername.github.io/wedding-invitation",
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  }
+}
+```
+3. Deploy: `npm run deploy`
+
+## 🔧 Tính Năng Nâng Cao
+
+### Tích Hợp Database (Tuỳ Chọn)
+Để lưu RSVP và guest book, bạn có thể tích hợp:
+
+1. **Firebase**: 
+   - Tạo project tại [Firebase Console](https://console.firebase.google.com)
+   - Thêm Firestore Database
+   - Cài đặt: `npm install firebase`
+
+2. **Supabase**: 
+   - Tạo project tại [Supabase](https://supabase.com)
+   - Cài đặt: `npm install @supabase/supabase-js`
+
+### Google Analytics (Tuỳ Chọn)
+Thêm tracking code vào `public/index.html`:
+
+```html
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GA_MEASUREMENT_ID');
+</script>
+```
+
+## 📱 SEO & Social Media
+
+### Meta Tags
+File `public/index.html` đã được tối ưu với:
+- Open Graph tags cho Facebook
+- Twitter Cards
+- Meta description
+- Viewport responsive
+
+### Tùy Chỉnh Social Sharing
+Cập nhật meta tags trong `public/index.html`:
+
+```html
+<meta property="og:title" content="💕 Thiệp Cưới [Tên Của Bạn] 💕" />
+<meta property="og:description" content="Mô tả đám cưới của bạn" />
+<meta property="og:image" content="URL_ảnh_preview" />
+```
+
+## 🐛 Troubleshooting
+
+### Audio không phát được
+- Hầu hết trình duyệt chặn autoplay audio
+- Người dùng cần click để bắt đầu nhạc
+- Đặt file nhạc trong thư mục `public/music/`
+
+### Hiệu ứng lag trên mobile
+- Giảm số lượng particles trong visual effects
+- Tắt một số hiệu ứng phức tạp cho mobile
+
+### Google Maps không hiển thị
+- Kiểm tra coordinates trong `WeddingMap.js`
+- Cập nhật API key nếu cần (cho production)
+
+## 💡 Tips & Tricks
+
+1. **Performance**: Tối ưu ảnh trước khi upload (WebP format)
+2. **Loading**: Thêm preloader cho ảnh lớn
+3. **Testing**: Test trên nhiều thiết bị và trình duyệt
+4. **Backup**: Lưu source code trên GitHub
+5. **Analytics**: Theo dõi lượt truy cập bằng Google Analytics
+
+## 📞 Hỗ Trợ
+
+Nếu gặp vấn đề khi sử dụng, hãy:
+1. Kiểm tra console browser (F12)
+2. Đảm bảo Node.js version tương thích
+3. Xóa `node_modules` và chạy lại `npm install`
+4. Kiểm tra internet connection cho các APIs
+
+## 📄 License
+
+MIT License - Tự do sử dụng cho mục đích cá nhân và thương mại.
+
+---
+
+**Chúc bạn có một đám cưới thật hạnh phúc! 💕**
+
+> "Tình yêu không chỉ là nhìn vào mắt nhau, mà là cùng nhau nhìn về một hướng." - Antoine de Saint-Exupéry

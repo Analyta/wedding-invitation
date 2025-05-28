@@ -1,0 +1,83 @@
+/* Countdown Timer */
+.countdown-container {
+  margin-top: 30px;
+  padding: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-medium);
+  backdrop-filter: blur(10px);
+}
+
+.countdown-title {
+  font-family: var(--font-dancing);
+  font-size: var(--font-xl);
+  margin-bottom: var(--radius-medium);
+  color: #8b6f47;
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.time-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  padding: var(--spacing-sm) var(--radius-medium);
+  border-radius: var(--spacing-sm);
+  min-width: 60px;
+}
+
+.time-number {
+  font-size: var(--font-xl);
+  font-weight: bold;
+  color: var(--accent-color);
+  font-family: var(--font-primary);
+}
+
+.time-label {
+  font-size: var(--font-xs);
+  color: var(--text-light);
+  margin-top: var(--spacing-xs);
+}
+
+.countdown-completed {
+  text-align: center;
+  padding: var(--spacing-md);
+  background: var(--gradient-secondary);
+  border-radius: var(--radius-medium);
+  color: var(--white);
+  margin-top: var(--spacing-md);
+}
+
+/* Love Quotes */
+.love-quotes-section {
+  margin-top: var(--spacing-lg);
+  padding: 30px;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quote-container {
+  text-align: center;
+  max-width: 500px;
+}
+
+.quote-icon {
+  font-size: var(--font-2xl);
+  color: var(--primary-color);
+  margin-bottom: var(--radius-medium);
+}
+
+.quote-text {
+  font-family: var(--font-dancing);
+  font-size: 1.3rem;
+  color: var(--text-light);
+  font-style: italic;
+  line-height: 1.6;
+} 

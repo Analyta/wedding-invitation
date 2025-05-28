@@ -1,0 +1,20 @@
+/* Footer */
+.footer {
+  background: var(--text-color);
+  color: var(--white);
+  text-align: center;
+  padding: var(--spacing-lg) var(--spacing-md);
+  position: relative;
+  z-index: var(--z-content);
+}
+
+.footer-text {
+  font-family: var(--font-dancing);
+  font-size: 1.3rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.footer-hearts {
+  font-size: var(--font-xl);
+  color: var(--primary-color);
+} 

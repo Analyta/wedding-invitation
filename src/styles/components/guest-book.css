@@ -1,0 +1,66 @@
+/* Guest Book Section */
+.guest-book-section {
+  padding: var(--spacing-xl) var(--spacing-md);
+  background: var(--gradient-primary);
+  position: relative;
+  z-index: var(--z-content);
+}
+
+.guest-book-title {
+  text-align: center;
+  font-family: var(--font-script);
+  font-size: var(--font-3xl);
+  color: var(--accent-color);
+  margin-bottom: var(--spacing-lg);
+}
+
+.guest-book-container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+}
+
+.guest-message-form {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-large);
+}
+
+.guest-messages {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: var(--spacing-sm);
+}
+
+.guest-message {
+  background: rgba(255, 255, 255, 0.9);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-medium);
+  margin-bottom: var(--radius-medium);
+  box-shadow: var(--shadow-small);
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.message-name {
+  font-weight: bold;
+  color: var(--accent-color);
+}
+
+.message-time {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+}
+
+.message-text {
+  color: var(--text-light);
+  line-height: 1.6;
+} 

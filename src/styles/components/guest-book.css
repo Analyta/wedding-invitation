@@ -1,66 +1,400 @@
-/* Guest Book Section */
+/** Guest Book Section - Modern Wedding Redesign **/
 .guest-book-section {
-  padding: var(--spacing-xl) var(--spacing-md);
-  background: var(--gradient-primary);
+  padding: 4rem 1rem 3rem 1rem;
+  background: linear-gradient(135deg, #fff6fa 0%, #f3e8ff 100%);
+  min-height: 100vh;
   position: relative;
-  z-index: var(--z-content);
+  z-index: 1;
 }
-
 .guest-book-title {
   text-align: center;
-  font-family: var(--font-script);
-  font-size: var(--font-3xl);
-  color: var(--accent-color);
-  margin-bottom: var(--spacing-lg);
+  font-family: 'Playfair Display', serif;
+  font-size: 2.7rem;
+  color: #ff6b81;
+  margin-bottom: 1.2rem;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
 }
-
-.guest-book-container {
-  max-width: 800px;
+.guest-book-title-icon {
+  font-size: 2.2rem;
+  color: #a29bfe;
+  margin-bottom: 0.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.guest-book-search {
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+.guest-book-search-input {
+  display: block;
+  width: 100%;
+  max-width: 400px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-lg);
+  position: relative;
+  z-index: 2;
+  padding: 1.1rem 1.5rem;
+  border-radius: 22px;
+  border: 2px solid #f8e1f4;
+  font-size: 1.1rem;
+  background: #f8f9fa;
+  box-shadow: 0 2px 8px rgba(255,182,185,0.07);
+  transition: border 0.2s, box-shadow 0.2s;
 }
-
+.guest-book-search-input:focus {
+  outline: none;
+  border: 2px solid #a29bfe;
+  box-shadow: 0 0 0 3px #f8e1f4;
+}
+.guest-book-flex {
+  display: flex;
+  flex-direction: row;
+  gap: 3.2rem;
+  justify-content: right;
+  align-items: flex-start;
+  /* max-width: 1300px; */
+  /* margin: 0 auto 2.5rem auto; */
+}
 .guest-message-form {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 30px;
-  border-radius: var(--radius-large);
-  box-shadow: var(--shadow-large);
+  flex: 1 1 340px;
+  max-width: 400px;
+  min-width: 260px;
+  margin-bottom: 2.2rem;
 }
-
 .guest-messages {
-  max-height: 400px;
+  flex: 2 1 500px;
+  max-width: 600px;
+  min-width: 260px;
+  height: 500px;
   overflow-y: auto;
-  padding-right: var(--spacing-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: transparent;
+  padding-right: 0.5rem;
+  margin-bottom: 2.2rem;
 }
-
 .guest-message {
-  background: rgba(255, 255, 255, 0.9);
-  padding: var(--spacing-md);
-  border-radius: var(--radius-medium);
-  margin-bottom: var(--radius-medium);
-  box-shadow: var(--shadow-small);
+  background: var(--card-bg, #fff6fa);
+  border-radius: 22px;
+  box-shadow: 0 8px 32px 0 rgba(255,182,185,0.13), 0 1.5px 0 0 #f8e1f4;
+  padding: 2.2rem 2.2rem 1.7rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  border: 2.5px solid;
+  border-image: linear-gradient(120deg, #f8e1f4 10%, #a29bfe 90%) 1;
+  min-width: 0;
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  transition: box-shadow 0.25s, border 0.3s, transform 0.2s, background 0.3s, border-radius 0.2s;
+  overflow: visible;
 }
-
+.guest-message:hover {
+  box-shadow: 0 12px 36px 0 rgba(162,155,254,0.18), 0 2px 0 0 #ffb6b9;
+  border-image: linear-gradient(120deg, #a29bfe 10%, #ffb6b9 90%) 1;
+  transform: translateY(-6px) scale(1.03);
+  background: #f8e1f4;
+  border-radius: 22px;
+}
 .message-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--spacing-sm);
+  gap: 0.7rem;
+  margin-bottom: 0.2rem;
 }
-
 .message-name {
-  font-weight: bold;
-  color: var(--accent-color);
+  font-weight: 700;
+  color: #ff6b81;
+  font-size: 1.22rem;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.5px;
 }
-
 .message-time {
-  font-size: var(--font-xs);
-  color: var(--text-muted);
+  font-size: 1rem;
+  color: #b2bec3;
+  font-style: italic;
+  margin-left: auto;
+  font-weight: 400;
 }
-
 .message-text {
-  color: var(--text-light);
-  line-height: 1.6;
+  color: #2d3436;
+  font-size: 1.13rem;
+  line-height: 1.8;
+  word-break: break-word;
+  padding-left: 0.1rem;
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+}
+.message-text::before {
+  content: '\2764';
+  color: #ffb6b9;
+  font-size: 1.1rem;
+  position: absolute;
+  left: -1.5rem;
+  top: 0.1rem;
+  opacity: 0.6;
+  display: none;
+}
+.guest-message::after {
+  content: '\1F490';
+  position: absolute;
+  right: 1.1rem;
+  bottom: 0.7rem;
+  font-size: 1.2rem;
+  opacity: 0.13;
+  pointer-events: none;
+}
+.guest-empty {
+  text-align: center;
+  color: #b2bec3;
+  font-style: italic;
+  margin: 2rem 0;
+}
+.guest-book-error {
+  background: #ffeaea;
+  color: #d63031;
+  border-radius: 14px;
+  padding: 0.9rem 1.3rem;
+  margin-bottom: 1.3rem;
+  text-align: center;
+  font-weight: 500;
+  border: 1.5px solid #ffb6b9;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.guest-book-input, .guest-book-textarea {
+  border-radius: 18px;
+  border: 2px solid #f8e1f4;
+  padding: 1.2rem 1.3rem;
+  font-size: 1.13rem;
+  background: #fff6fa;
+  transition: border 0.2s, box-shadow 0.2s;
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 0 2px 8px rgba(255,182,185,0.07);
+}
+.guest-book-input:focus, .guest-book-textarea:focus {
+  outline: none;
+  border: 2px solid #a29bfe;
+  background: #fff;
+  box-shadow: 0 0 0 3px #f8e1f4;
+}
+.guest-book-textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+.guest-book-submit-btn {
+  margin-top: 0.7rem;
+  background: linear-gradient(90deg, #ffb6b9 0%, #a29bfe 100%);
+  color: #fff;
+  border: none;
+  border-radius: 32px;
+  font-size: 1.22rem;
+  font-weight: 700;
+  padding: 1.15rem 0;
+  width: 100%;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(255,182,185,0.18);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+.guest-book-submit-btn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #a29bfe 0%, #ffb6b9 100%);
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 8px 32px rgba(255,182,185,0.22);
+}
+.guest-book-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+@media (max-width: 900px) {
+  .guest-book-flex {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .guest-message-form, .guest-messages {
+    max-width: 100vw;
+    min-width: 0;
+  }
+  .guest-messages {
+    height: 320px;
+    padding-right: 0;
+  }
+}
+@media (max-width: 600px) {
+  .guest-book-section {
+    padding: 1.2rem 0.1rem 1.2rem 0.1rem;
+    min-height: unset;
+  }
+  .guest-book-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.7rem;
+    padding: 0 0.5rem;
+  }
+  .guest-book-search {
+    margin-bottom: 1.2rem;
+    padding: 0 0.5rem;
+  }
+  .guest-book-search-input {
+    font-size: 1rem;
+    padding: 0.9rem 1rem;
+    max-width: 99vw;
+    border-radius: 18px;
+  }
+  .guest-book-flex {
+    gap: 1.2rem;
+    padding: 0 0.5rem;
+  }
+  .guest-message-form {
+    padding: 0.7rem 0.2rem 0.7rem 0.2rem;
+    max-width: 99vw;
+    border-radius: 18px;
+    box-shadow: 0 2px 10px rgba(255,182,185,0.10);
+    margin-bottom: 1.2rem;
+  }
+  .guest-book-form-fields {
+    gap: 0.7rem;
+  }
+  .guest-book-input, .guest-book-textarea {
+    font-size: 1rem;
+    padding: 0.9rem 1rem;
+    border-radius: 14px;
+  }
+  .guest-book-submit-btn {
+    font-size: 1.05rem;
+    padding: 0.9rem 0;
+    border-radius: 20px;
+  }
+  .guest-messages {
+    height: 220px;
+    gap: 0.7rem;
+    max-width: 99vw;
+    padding: 0 0.2rem;
+    margin-bottom: 1.2rem;
+  }
+  .guest-message {
+    padding: 1.1rem 0.7rem 1rem 0.7rem;
+    border-radius: 16px;
+    max-width: 99vw;
+    font-size: 0.98rem;
+    margin: 0 auto;
+    box-shadow: 0 2px 10px rgba(255,182,185,0.10);
+  }
+  .message-header {
+    font-size: 0.98rem;
+    gap: 0.3rem;
+  }
+  .message-name {
+    font-size: 1.05rem;
+  }
+  .message-time {
+    font-size: 0.92rem;
+  }
+  .message-text {
+    font-size: 0.98rem;
+    line-height: 1.5;
+  }
+  .guest-book-error {
+    font-size: 0.98rem;
+    padding: 0.7rem 0.5rem;
+    border-radius: 10px;
+    max-width: 99vw;
+  }
+  .guest-empty {
+    font-size: 0.98rem;
+    margin: 1rem 0;
+  }
+  .guest-book-subtitle {
+    font-size: 1.08rem;
+    margin-bottom: 0.6rem;
+    margin-top: 0.1rem;
+  }
+  .guest-messages-list {
+    max-height: 220px;
+    gap: 0.7rem;
+  }
+}
+/* Desktop improvements */
+@media (min-width: 1200px) {
+  .guest-book-flex {
+    gap: 4rem;
+  }
+  .guest-message-form {
+    max-width: 420px;
+  }
+  .guest-messages {
+    max-width: 650px;
+    height: 600px;
+    gap: 2.5rem;
+  }
+  .guest-message {
+    max-width: 500px;
+    font-size: 1.18rem;
+    padding: 2.5rem 2.5rem 2rem 2.5rem;
+    border-radius: 28px;
+  }
+  .message-header {
+    font-size: 1.15rem;
+  }
+  .message-name {
+    font-size: 1.25rem;
+  }
+  .message-time {
+    font-size: 1.08rem;
+  }
+  .message-text {
+    font-size: 1.15rem;
+    line-height: 1.9;
+  }
+}
+.guest-book-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 1.1rem;
+  margin-top: 0.2rem;
+  letter-spacing: 0.5px;
+  text-align: center;
+  width: auto;
+  max-width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(90deg, #ffb6b9 0%, #a29bfe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #a29bfe;
+  gap: 0.5rem;
+}
+.guest-book-subtitle .subtitle-icon {
+  font-size: 1.2em;
+  margin-right: 0.3em;
+  vertical-align: middle;
+}
+.guest-messages {
+  margin-bottom: 2.2rem;
+}
+.guest-messages-list {
+  max-height: 400px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 } 

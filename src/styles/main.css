@@ -227,6 +227,7 @@ body, .wedding-invitation {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: textShine 3s ease-in-out infinite;
+  background-clip: text;
 }
 
 @keyframes textShine {
@@ -911,7 +912,7 @@ body, .wedding-invitation {
   color: white;
   font-size: 3.5rem;
   font-family: 'Great Vibes', cursive;
-  margin-bottom: 4rem;
+  /* margin-bottom: 4rem; */
   position: relative;
   z-index: 2;
 }

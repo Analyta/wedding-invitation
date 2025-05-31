@@ -6,18 +6,19 @@ import { AnimatedSection } from './ScrollAnimations';
 function WeddingMap() {
   // Replace with actual venue coordinates
   const venueInfo = {
-    name: "Nhà Hàng Tiệc Cưới ABC",
-    address: "123 Nguyễn Huệ, Quận 1, TP.HCM",
+    name: "Nhà Mai Yến",
+    address: "Vĩnh Tân, Tân Uyên, Bình Dương",
     phone: "028 1234 5678", 
     coordinates: {
-      lat: 10.7769,
-      lng: 106.7009
+      lat: 11.130572324138944,
+      lng: 106.72397644452428
     },
     hours: "08:00 - 22:00",
-    description: "Nhà hàng tiệc cưới sang trọng với không gian thoáng đãng và dịch vụ chuyên nghiệp"
+    description: "Địa điểm tổ chức lễ đính hôn"
   };
 
-  const mapSrc = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4955074829547!2d${venueInfo.coordinates.lng}!3d${venueInfo.coordinates.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTDCsDQ2JzM2LjgiTiAxMDbCsDQyJzAzLjIiRQ!5e0!3m2!1svi!2s!4v1234567890123`;
+  // Sử dụng URL embed với Plus Code
+  const mapSrc = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.1234567890123!2d106.72397644452428!3d11.130572324138944!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDA3JzUwLjEiTiAxMDbCsDQzJzMzLjQiRQ!5e0!3m2!1svi!2s!4v1748666752296!5m2!1svi!2s&q=4PJG%2B69F%20T%C3%A2n%20Uy%C3%AAn%2C%20B%C3%ACnh%20D%C6%B0%C6%A1ng%2C%20Vi%E1%BB%87t%20Nam";
 
   const openDirections = () => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${venueInfo.coordinates.lat},${venueInfo.coordinates.lng}`;

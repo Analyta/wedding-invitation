@@ -1,130 +1,77 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from 'react-icons/fa';
+import wedding from '../assets/wedding.mp3';
 
 // Nhạc cưới - ưu tiên file local, fallback to online
 const MUSIC_SOURCES = [
-  "/wedding-music.mp3", // File local trong public folder
-  "https://www.bensound.com/bensound-music/bensound-romantic.mp3",
-  "https://www.bensound.com/bensound-music/bensound-love.mp3",
-  "https://www.bensound.com/bensound-music/bensound-dreams.mp3"
+  wedding, // File local trong public folder
 ];
 
 function MusicControl() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [currentVolume, setCurrentVolume] = useState(0.3);
-  const [currentSourceIndex, setCurrentSourceIndex] = useState(0);
-  const audioRef = useRef(null);
+  const audioRef = useRef(new Audio(wedding));
 
   useEffect(() => {
-    // Tạo audio element với source đầu tiên
-    const audio = new Audio();
+    const audio = audioRef.current;
     audio.loop = true;
-    audio.volume = currentVolume;
-    audio.preload = 'auto';
-    audio.src = MUSIC_SOURCES[currentSourceIndex];
-    
-    // Handle lỗi loading
-    audio.addEventListener('error', () => {
-      console.log(`Không load được: ${MUSIC_SOURCES[currentSourceIndex]}`);
-      // Thử source tiếp theo
-      if (currentSourceIndex < MUSIC_SOURCES.length - 1) {
-        setCurrentSourceIndex(prev => prev + 1);
-      }
-    });
+    audio.volume = 0.3;
 
-    audio.addEventListener('canplaythrough', () => {
-      console.log(`Đã load thành công: ${MUSIC_SOURCES[currentSourceIndex]}`);
-      // Tự động phát khi load xong
-      audio.play().then(() => {
+    // Hàm xử lý tương tác người dùng
+    const handleUserInteraction = async () => {
+      try {
+        await audio.play();
         setIsPlaying(true);
-      }).catch(err => {
-        console.log('Không thể tự động phát:', err);
-      });
-    });
+        // Xóa event listeners sau khi phát thành công
+        document.removeEventListener('click', handleUserInteraction);
+        document.removeEventListener('touchstart', handleUserInteraction);
+      } catch (error) {
+        console.log('Vẫn không thể phát nhạc:', error);
+      }
+    };
 
-    audioRef.current = audio;
+    // Thử phát nhạc khi component mount
+    const tryAutoPlay = async () => {
+      try {
+        await audio.play();
+        setIsPlaying(true);
+      } catch (error) {
+        console.log('Không thể tự động phát nhạc:', error);
+        // Nếu bị chặn, thử phát khi có tương tác người dùng
+        document.addEventListener('click', handleUserInteraction);
+        document.addEventListener('touchstart', handleUserInteraction);
+      }
+    };
+
+    tryAutoPlay();
 
     // Cleanup khi component unmount
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
+      audio.pause();
+      audio.currentTime = 0;
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('touchstart', handleUserInteraction);
     };
   }, []);
 
-  // Cập nhật source khi index thay đổi
-  useEffect(() => {
-    if (audioRef.current && MUSIC_SOURCES[currentSourceIndex]) {
-      audioRef.current.src = MUSIC_SOURCES[currentSourceIndex];
-      audioRef.current.load();
+  const togglePlay = () => {
+    const audio = audioRef.current;
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      audio.play().catch(error => {
+        console.log('Không thể phát nhạc:', error);
+      });
     }
-  }, [currentSourceIndex]);
-
-  useEffect(() => {
-    if (!audioRef.current) return;
-    // Tự động phát nhạc nếu có thể
-    const tryPlay = () => {
-      if (!audioRef.current) return;
-      if (!isPlaying) {
-        const playPromise = audioRef.current.play();
-        if (playPromise !== undefined) {
-          playPromise.then(() => {
-            setIsPlaying(true);
-          }).catch(() => {});
-        }
-      }
-    };
-    // Thử phát nhạc khi load
-    tryPlay();
-    // Nếu bị chặn, phát khi có bất kỳ tương tác nào
-    const events = ['pointerdown', 'touchstart', 'keydown', 'scroll'];
-    events.forEach(evt => window.addEventListener(evt, tryPlay, { once: true }));
-    return () => {
-      events.forEach(evt => window.removeEventListener(evt, tryPlay));
-    };
-  }, [currentSourceIndex]);
-
-  const togglePlay = async () => {
-    if (!audioRef.current) return;
-
-    try {
-      if (isPlaying) {
-        audioRef.current.pause();
-        setIsPlaying(false);
-      } else {
-        // Thử phát nhạc
-        await audioRef.current.play();
-        setIsPlaying(true);
-      }
-    } catch (error) {
-      console.log('Lỗi phát nhạc:', error);
-      // Thử source tiếp theo nếu có
-      if (currentSourceIndex < MUSIC_SOURCES.length - 1) {
-        setCurrentSourceIndex(prev => prev + 1);
-      }
-    }
+    setIsPlaying(!isPlaying);
   };
 
   const toggleMute = () => {
-    if (!audioRef.current) return;
-
-    if (isMuted) {
-      audioRef.current.volume = currentVolume;
-      setIsMuted(false);
-    } else {
-      audioRef.current.volume = 0;
-      setIsMuted(true);
-    }
+    const audio = audioRef.current;
+    audio.volume = isMuted ? 0.3 : 0;
+    setIsMuted(!isMuted);
   };
-
-  useEffect(() => {
-    if (audioRef.current && !isMuted) {
-      audioRef.current.volume = currentVolume;
-    }
-  }, [currentVolume, isMuted]);
 
   return (
     <AnimatePresence>

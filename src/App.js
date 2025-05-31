@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaCalendarAlt, FaMapMarkerAlt, FaEnvelope, FaQuoteLeft, FaBook, FaHeart } from 'react-icons/fa';
+import { FaCalendarAlt, FaMapMarkerAlt, FaQuoteLeft, FaBook, FaHeart, FaEdit, FaListUl } from 'react-icons/fa';
 import Countdown from 'react-countdown';
 import confetti from 'canvas-confetti';
+import { ref, push, onValue, set } from 'firebase/database';
+import { database } from './firebase';
 
 // Import new components
 import MusicControl from './components/MusicControl';
@@ -16,24 +18,30 @@ import {
 } from './components/VisualEffects';
 import { AnimatedSection, StaggeredContainer, StaggeredItem } from './components/ScrollAnimations';
 import WeddingMap from './components/WeddingMap';
-import PhotoBooth from './components/PhotoBooth';
 
 import './styles/main.css';
 
 // Import images
-import brideImage from './assets/images/avt.jpg';
-import groomImage from './assets/images/avt.jpg';
+import brideImage from './assets/images/avt_yen.jpg';
+import groomImage from './assets/images/avt_linh.jpg';
+import ac1 from './assets/images/ac1.jpg';
+import ac2 from './assets/images/ac2.jpg';
+import ac3 from './assets/images/ac3.jpg';
+import ac4 from './assets/images/ac4.jpg';
+import ac5 from './assets/images/ac5.jpg';
+import ac6 from './assets/images/ac6.jpg';
 
 // Demo images - you can replace these with actual photos
 const DEMO_BRIDE_IMAGE = brideImage;
 const DEMO_GROOM_IMAGE = groomImage;
 
 const DEMO_GALLERY_IMAGES = [
-  "https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-  "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-  "https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-  "https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-  "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+  ac1,
+  ac2,
+  ac3,
+  ac4,
+  ac5,
+  ac6
 ];
 
 // Love quotes for slideshow
@@ -47,7 +55,7 @@ const LOVE_QUOTES = [
 ];
 
 // Wedding date for countdown
-const WEDDING_DATE = new Date('2025-10-11T11:00:00');
+const WEDDING_DATE = new Date('2025-06-14T11:00:00');
 
 // Love Quotes Slideshow
 function LoveQuotes() {
@@ -82,33 +90,138 @@ function CountdownTimer() {
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
       return (
-        <div className="countdown-completed">
-          <h3>🎉 Hôm nay là ngày cưới! 🎉</h3>
-        </div>
+        <motion.div 
+          className="countdown-completed"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.h3
+            animate={{ 
+              scale: [1, 1.1, 1],
+              rotate: [-5, 5, -5]
+            }}
+            transition={{ 
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            🎉 Hôm nay là ngày cưới! 🎉
+          </motion.h3>
+        </motion.div>
       );
     } else {
       return (
-        <div className="countdown-container">
-          <h3 className="countdown-title">⏰ Còn lại bao lâu nữa?</h3>
-          <div className="countdown-timer">
-            <div className="time-unit">
-              <span className="time-number">{days}</span>
+        <motion.div 
+          className="countdown-container"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.h3 
+            className="countdown-title"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            ⏰ Còn lại bao lâu nữa?
+          </motion.h3>
+          <motion.div 
+            className="countdown-timer"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            <motion.div 
+              className="time-unit"
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <motion.span 
+                className="time-number"
+                animate={{ 
+                  scale: [1, 1.1, 1],
+                  rotate: [0, 5, 0]
+                }}
+                transition={{ 
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                {days}
+              </motion.span>
               <span className="time-label">Ngày</span>
-            </div>
-            <div className="time-unit">
-              <span className="time-number">{hours}</span>
+            </motion.div>
+            <motion.div 
+              className="time-unit"
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <motion.span 
+                className="time-number"
+                animate={{ 
+                  scale: [1, 1.1, 1],
+                  rotate: [0, 5, 0]
+                }}
+                transition={{ 
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.5
+                }}
+              >
+                {hours}
+              </motion.span>
               <span className="time-label">Giờ</span>
-            </div>
-            <div className="time-unit">
-              <span className="time-number">{minutes}</span>
+            </motion.div>
+            <motion.div 
+              className="time-unit"
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <motion.span 
+                className="time-number"
+                animate={{ 
+                  scale: [1, 1.1, 1],
+                  rotate: [0, 5, 0]
+                }}
+                transition={{ 
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1
+                }}
+              >
+                {minutes}
+              </motion.span>
               <span className="time-label">Phút</span>
-            </div>
-            <div className="time-unit">
-              <span className="time-number">{seconds}</span>
+            </motion.div>
+            <motion.div 
+              className="time-unit"
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <motion.span 
+                className="time-number"
+                animate={{ 
+                  scale: [1, 1.1, 1],
+                  rotate: [0, 5, 0]
+                }}
+                transition={{ 
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1.5
+                }}
+              >
+                {seconds}
+              </motion.span>
               <span className="time-label">Giây</span>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       );
     }
   };
@@ -118,90 +231,147 @@ function CountdownTimer() {
 
 // Guest Book Component
 function GuestBook() {
-  const [guestMessages, setGuestMessages] = useState([
-    { id: 1, name: "Nguyễn Văn A", message: "Chúc hai bạn hạnh phúc mãi mãi!", time: "2 giờ trước" },
-    { id: 2, name: "Trần Thị B", message: "Yêu thương và hạnh phúc sẽ theo hai bạn suốt đời!", time: "5 giờ trước" },
-    { id: 3, name: "Lê Văn C", message: "Chúc mừng cặp đôi xinh đẹp! 💕", time: "1 ngày trước" }
-  ]);
+  const [guestMessages, setGuestMessages] = useState([]);
   const [newMessage, setNewMessage] = useState({ name: '', message: '' });
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
-  const addMessage = (e) => {
-    e.preventDefault();
-    if (newMessage.name && newMessage.message) {
-      const message = {
-        id: Date.now(),
-        name: newMessage.name,
-        message: newMessage.message,
-        time: "Vừa xong"
-      };
-      setGuestMessages(prev => [message, ...prev]);
-      setNewMessage({ name: '', message: '' });
+  useEffect(() => {
+    const messagesRef = ref(database, 'messages');
+    const unsubscribe = onValue(messagesRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const messages = Object.entries(data).map(([id, message]) => ({
+          id,
+          ...message
+        })).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        setGuestMessages(messages);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffInMinutes = Math.floor((now - date) / (1000 * 60));
+    if (diffInMinutes < 60) {
+      return `${diffInMinutes} phút trước`;
+    } else if (diffInMinutes < 1440) {
+      const hours = Math.floor(diffInMinutes / 60);
+      return `${hours} giờ trước`;
+    } else {
+      const days = Math.floor(diffInMinutes / 1440);
+      return `${days} ngày trước`;
     }
   };
 
-  return (
-    <AnimatedSection className="guest-book-section">
-      <motion.h2 
-        className="guest-book-title"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-      >
-        <FaBook /> Sổ lưu bút
-      </motion.h2>
-      
-      <div className="guest-book-container">
-        <motion.form 
-          className="guest-message-form"
-          onSubmit={addMessage}
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-        >
-          <input
-            type="text"
-            placeholder="Tên của bạn"
-            value={newMessage.name}
-            onChange={(e) => setNewMessage({...newMessage, name: e.target.value})}
-            required
-          />
-          <textarea
-            placeholder="Gửi lời chúc đến cô dâu chú rể..."
-            value={newMessage.message}
-            onChange={(e) => setNewMessage({...newMessage, message: e.target.value})}
-            required
-          ></textarea>
-          <motion.button 
-            type="submit"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Gửi lời chúc 💌
-          </motion.button>
-        </motion.form>
+  const addMessage = async (e) => {
+    e.preventDefault();
+    if (newMessage.name && newMessage.message) {
+      setIsSubmitting(true);
+      setError('');
+      try {
+        const messagesRef = ref(database, 'messages');
+        const newMessageRef = push(messagesRef);
+        await set(newMessageRef, {
+          name: newMessage.name,
+          message: newMessage.message,
+          timestamp: new Date().toISOString()
+        });
+        setNewMessage({ name: '', message: '' });
+        alert('Gửi lời chúc thành công! 💝');
+      } catch (error) {
+        setError('Không thể gửi tin nhắn. Vui lòng thử lại sau.');
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
+  };
 
+  const filteredMessages = guestMessages.filter(msg => 
+    msg.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    msg.message.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Pastel color palette for cards
+  const pastelColors = [
+    '#fff6fa', '#f8e1f4', '#e3f6fd', '#fef6e4', '#e4f9f5', '#f3e8ff', '#f9fbe7'
+  ];
+
+  return (
+    <section className="guest-book-section">
+      <div className="guest-book-title">
+        <FaBook style={{ fontSize: '2rem', color: '#a29bfe', marginBottom: '0.5rem', verticalAlign: 'middle' }} />
+        <span style={{ marginLeft: 8 }}>Sổ lưu bút</span>
+      </div>
+      <div className="guest-book-search" style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
+        <input
+          type="text"
+          className="guest-book-search-input"
+          placeholder="Tìm kiếm lời chúc..."
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+          style={{ maxWidth: 400, width: '100%' }}
+        />
+      </div>
+      {error && <div className="guest-book-error">{error}</div>}
+      <div className="guest-book-flex">
+        <form className="guest-message-form" onSubmit={addMessage}>
+          <div className="guest-book-subtitle" style={{textAlign:'center'}}>
+            <FaEdit className="subtitle-icon" /> Gửi lời chúc
+          </div>
+          <div className="guest-book-form-fields">
+            <input
+              type="text"
+              className="guest-book-input"
+              placeholder="Tên của bạn"
+              value={newMessage.name}
+              onChange={e => setNewMessage({ ...newMessage, name: e.target.value })}
+              required
+            />
+            <textarea
+              className="guest-book-textarea"
+              placeholder="Gửi lời chúc đến cô dâu chú rể..."
+              value={newMessage.message}
+              onChange={e => setNewMessage({ ...newMessage, message: e.target.value })}
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="guest-book-submit-btn"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Đang gửi...' : 'Gửi lời chúc 💌'}
+          </button>
+        </form>
         <div className="guest-messages">
-          <AnimatePresence>
-            {guestMessages.map((msg, index) => (
-              <motion.div 
-                key={msg.id}
+          <div className="guest-book-subtitle" style={{textAlign:'center'}}>
+            <FaListUl className="subtitle-icon" /> Danh sách lời chúc
+          </div>
+          <div className="guest-messages-list">
+            {filteredMessages.length === 0 && (
+              <div className="guest-empty">Chưa có lời chúc nào.</div>
+            )}
+            {filteredMessages.map((msg, idx) => (
+              <div
                 className="guest-message"
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 50 }}
-                transition={{ delay: index * 0.1 }}
+                key={msg.id}
+                style={{ '--card-bg': pastelColors[idx % pastelColors.length] }}
               >
                 <div className="message-header">
                   <span className="message-name">{msg.name}</span>
-                  <span className="message-time">{msg.time}</span>
+                  <span className="message-time">{formatTimestamp(msg.timestamp)}</span>
                 </div>
-                <p className="message-text">{msg.message}</p>
-              </motion.div>
+                <div className="message-text">{msg.message}</div>
+              </div>
             ))}
-          </AnimatePresence>
+          </div>
         </div>
       </div>
-    </AnimatedSection>
+    </section>
   );
 }
 
@@ -235,7 +405,7 @@ function Header() {
             onHoverStart={triggerConfetti}
             whileHover={{ scale: 1.05 }}
           >
-            Linh & Yến
+            Mai Yến & Tuấn Linh
           </motion.h1>
           <motion.div 
             className="title-decoration"
@@ -266,13 +436,13 @@ function Header() {
             className="date"
             whileHover={{ scale: 1.05 }}
           >
-            <FaCalendarAlt /> 11 tháng 10, 2025
+            <FaCalendarAlt /> 14 tháng 6, 2025
           </motion.div>
           <motion.div 
             className="venue"
             whileHover={{ scale: 1.05 }}
           >
-            <FaMapMarkerAlt /> Nhà Hàng Tiệc Cưới ABC, TP.HCM
+            <FaMapMarkerAlt /> Nhà Mai Yến (Vĩnh Tân, Tân Uyên, Bình Dương)
           </motion.div>
         </motion.div>
         
@@ -306,19 +476,19 @@ function CoupleSection() {
         <div className="couple-info">
           <div className="couple-photo-container">
             <motion.div 
-              className="photo-container groom"
+              className="photo-container bride"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
               <div className="photo-frame">
                 <img 
-                  src={DEMO_GROOM_IMAGE} 
-                  alt="Chú rể" 
+                  src={DEMO_BRIDE_IMAGE} 
+                  alt="Cô dâu" 
                   className="couple-photo"
                 />
                 <div className="photo-overlay">
-                  <h3>Chú rể</h3>
-                  <p>Linh</p>
+                  <h3>Cô dâu</h3>
+                  <p>Mai Yến</p>
                 </div>
               </div>
             </motion.div>
@@ -335,19 +505,19 @@ function CoupleSection() {
             </motion.div>
             
             <motion.div 
-              className="photo-container bride"
+              className="photo-container groom"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
               <div className="photo-frame">
                 <img 
-                  src={DEMO_BRIDE_IMAGE} 
-                  alt="Cô dâu" 
+                  src={DEMO_GROOM_IMAGE} 
+                  alt="Chú rể" 
                   className="couple-photo"
                 />
                 <div className="photo-overlay">
-                  <h3>Cô dâu</h3>
-                  <p>Mai Yến</p>
+                  <h3>Chú rể</h3>
+                  <p>Tuấn Linh</p>
                 </div>
               </div>
             </motion.div>
@@ -382,14 +552,9 @@ function Timeline() {
       description: "Tại nhà cô dâu"
     },
     {
-      time: "14:00", 
-      title: "Lễ cưới",
-      description: "Nhà Hàng Tiệc Cưới ABC"
-    },
-    {
-      time: "17:00",
-      title: "Tiệc cưới",
-      description: "Ăn uống và vui chơi cùng gia đình, bạn bè"
+      time: "11:00", 
+      title: "Tiệc mừng",
+      description: "Nhà Mai Yến (Vĩnh Tân, Tân Uyên, Bình Dương)"
     }
   ];
 
@@ -448,162 +613,6 @@ function Gallery() {
   );
 }
 
-function RSVP() {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    attendance: '',
-    guests: 1,
-    message: ''
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Here you would typically send the data to a backend
-    alert('Cảm ơn bạn đã xác nhận! Chúng mình rất mong được gặp bạn trong ngày trọng đại này.');
-    console.log('RSVP Data:', formData);
-  };
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  return (
-    <AnimatedSection className="rsvp-section" animation="slideInUp">
-      <motion.h2 
-        className="rsvp-title"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-      >
-        💌 Bạn có tham dự cùng chúng mình không?
-      </motion.h2>
-      
-      <motion.p 
-        className="rsvp-subtitle"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        viewport={{ once: true }}
-      >
-        Sự hiện diện của bạn sẽ làm cho ngày cưới của chúng mình thêm ý nghĩa
-      </motion.p>
-
-      <motion.form 
-        className="rsvp-form"
-        onSubmit={handleSubmit}
-        initial={{ opacity: 0, scale: 0.8 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.3 }}
-        viewport={{ once: true }}
-      >
-        <div className="form-row">
-          <div className="form-group">
-            <label htmlFor="name">🧑‍💼 Họ và tên *</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Vui lòng nhập họ tên"
-              required
-            />
-          </div>
-          
-          <div className="form-group">
-            <label htmlFor="phone">📞 Số điện thoại</label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="0123 456 789"
-            />
-          </div>
-        </div>
-        
-        <div className="form-group attendance-group">
-          <label>🎉 Bạn có thể tham dự không? *</label>
-          <div className="radio-group">
-            <label className="radio-option">
-              <input
-                type="radio"
-                name="attendance"
-                value="yes"
-                checked={formData.attendance === 'yes'}
-                onChange={handleChange}
-                required
-              />
-              <span className="radio-custom"></span>
-              <span className="radio-text">✅ Có, tôi sẽ đến</span>
-            </label>
-            <label className="radio-option">
-              <input
-                type="radio"
-                name="attendance"
-                value="no"
-                checked={formData.attendance === 'no'}
-                onChange={handleChange}
-                required
-              />
-              <span className="radio-custom"></span>
-              <span className="radio-text">❌ Rất tiếc, tôi không thể đến</span>
-            </label>
-          </div>
-        </div>
-        
-        {formData.attendance === 'yes' && (
-          <motion.div 
-            className="form-group"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            transition={{ duration: 0.3 }}
-          >
-            <label htmlFor="guests">👥 Số người tham dự</label>
-            <select
-              id="guests"
-              name="guests"
-              value={formData.guests}
-              onChange={handleChange}
-            >
-              <option value={1}>1 người</option>
-              <option value={2}>2 người (có người đi cùng)</option>
-              <option value={3}>3 người</option>
-              <option value={4}>4+ người</option>
-            </select>
-          </motion.div>
-        )}
-        
-        <div className="form-group">
-          <label htmlFor="message">💝 Lời chúc cho cô dâu chú rể</label>
-          <textarea
-            id="message"
-            name="message"
-            rows="4"
-            value={formData.message}
-            onChange={handleChange}
-            placeholder="Gửi lời chúc mừng đến cô dâu chú rể..."
-          ></textarea>
-        </div>
-        
-        <motion.button 
-          type="submit" 
-          className="submit-btn"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaEnvelope /> Gửi xác nhận
-        </motion.button>
-      </motion.form>
-    </AnimatedSection>
-  );
-}
-
 function Footer() {
   return (
     <AnimatedSection className="footer" animation="fadeInUp">
@@ -617,7 +626,7 @@ function Footer() {
         </p>
         <div className="footer-hearts">💕 💕 💕</div>
         <p style={{marginTop: '10px', fontSize: '0.9rem', opacity: 0.7}}>
-          Với tình yêu, Minh & Hoa
+          Với tình yêu, Mai Yến & Tuấn Linh
         </p>
       </motion.div>
     </AnimatedSection>
@@ -722,13 +731,11 @@ function App() {
       <CoupleSection />
       <Timeline />
       <Gallery />
-      <PhotoBooth />
       <GuestBook />
-      <RSVP />
       <WeddingMap />
       <Footer />
     </div>
   );
 }
 
-export default App;
+export default App; 

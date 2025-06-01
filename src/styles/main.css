@@ -525,13 +525,13 @@ body, .wedding-invitation {
 }
 
 .love-story::before {
-  top: -1rem;
-  left: 0;
+left: -10px;
+top: -3rem;
 }
 
 .love-story::after {
-  bottom: -2.5rem;
-  right: 0;
+bottom: -3.5rem;
+right: 15px;
 }
 
 /* Love Quotes Section */

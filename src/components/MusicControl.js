@@ -11,56 +11,74 @@ const MUSIC_SOURCES = [
 function MusicControl() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const audioRef = useRef(new Audio(wedding));
+  const [isLoaded, setIsLoaded] = useState(false);
+  const audioRef = useRef(null);
 
   useEffect(() => {
-    const audio = audioRef.current;
+    // Khởi tạo audio khi component mount
+    const audio = new Audio();
+    audio.src = wedding;
     audio.loop = true;
     audio.volume = 0.3;
+    audio.preload = 'auto';
+
+    // Xử lý sự kiện khi audio đã tải xong
+    audio.addEventListener('canplaythrough', () => {
+      setIsLoaded(true);
+    });
+
+    audioRef.current = audio;
 
     // Hàm xử lý tương tác người dùng
     const handleUserInteraction = async () => {
+      if (!isLoaded) return;
       try {
         await audio.play();
         setIsPlaying(true);
-        // Xóa event listeners sau khi phát thành công
         document.removeEventListener('click', handleUserInteraction);
         document.removeEventListener('touchstart', handleUserInteraction);
       } catch (error) {
-        console.log('Vẫn không thể phát nhạc:', error);
+        console.log('Không thể phát nhạc:', error);
       }
     };
 
     // Thử phát nhạc khi component mount
     const tryAutoPlay = async () => {
+      if (!isLoaded) return;
       try {
         await audio.play();
         setIsPlaying(true);
       } catch (error) {
         console.log('Không thể tự động phát nhạc:', error);
-        // Nếu bị chặn, thử phát khi có tương tác người dùng
         document.addEventListener('click', handleUserInteraction);
         document.addEventListener('touchstart', handleUserInteraction);
       }
     };
 
-    tryAutoPlay();
+    // Thử phát nhạc khi đã tải xong
+    if (isLoaded) {
+      tryAutoPlay();
+    }
 
     // Cleanup khi component unmount
     return () => {
-      audio.pause();
-      audio.currentTime = 0;
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+        audio.removeEventListener('canplaythrough', () => {});
+      }
       document.removeEventListener('click', handleUserInteraction);
       document.removeEventListener('touchstart', handleUserInteraction);
     };
-  }, []);
+  }, [isLoaded]);
 
   const togglePlay = () => {
-    const audio = audioRef.current;
+    if (!audioRef.current || !isLoaded) return;
+    
     if (isPlaying) {
-      audio.pause();
+      audioRef.current.pause();
     } else {
-      audio.play().catch(error => {
+      audioRef.current.play().catch(error => {
         console.log('Không thể phát nhạc:', error);
       });
     }
@@ -68,8 +86,8 @@ function MusicControl() {
   };
 
   const toggleMute = () => {
-    const audio = audioRef.current;
-    audio.volume = isMuted ? 0.3 : 0;
+    if (!audioRef.current || !isLoaded) return;
+    audioRef.current.muted = !isMuted;
     setIsMuted(!isMuted);
   };
 
@@ -88,6 +106,7 @@ function MusicControl() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           title={isPlaying ? "Tạm dừng nhạc" : "Phát nhạc"}
+          disabled={!isLoaded}
         >
           {isPlaying ? <FaPause /> : <FaPlay />}
         </motion.button>
@@ -98,6 +117,7 @@ function MusicControl() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           title={isMuted ? "Tắt âm thanh" : "Bật âm thanh"}
+          disabled={!isLoaded}
         >
           {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
         </motion.button>

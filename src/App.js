@@ -531,9 +531,9 @@ function CoupleSection() {
           >
             <h3>Our Story</h3>
             <p className="love-story">
-              "Tình yêu không chỉ là nhìn vào mắt nhau, mà là cùng nhau nhìn về một hướng. 
-              Chúng mình đã tìm thấy tình yêu đích thực và giờ đây sẵn sàng bước vào cuộc sống mới 
-              với nhau. Hãy cùng chúng mình chia sẻ niềm hạnh phúc này!"
+              "Cả nhà ơi, giật mình chưa? Mai Yến chính thức "tạm biệt em yêu độc thân" vào ngày 14/6/2025.
+               Nay Mai Yến đã sẵn sàng "chốt kèo" để phiêu lưu vào thế giới "có đôi có cặp". 
+               Mời mọi người đến tiệc vui cùng Mai Yến và Tuấn Linh nha. Mãi yêu mọi người ❤️"
             </p>
           </motion.div>
         </div>

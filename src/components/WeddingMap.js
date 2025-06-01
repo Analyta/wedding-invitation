@@ -8,7 +8,7 @@ function WeddingMap() {
   const venueInfo = {
     name: "Nhà Mai Yến",
     address: "Vĩnh Tân, Tân Uyên, Bình Dương",
-    phone: "028 1234 5678", 
+    phone: "033 4993 356", 
     coordinates: {
       lat: 11.130572324138944,
       lng: 106.72397644452428

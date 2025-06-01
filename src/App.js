@@ -423,7 +423,7 @@ function Header() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
         >
-          Chúng mình sẽ kết hôn!
+          Chúng mình sẽ đính hôn!
         </motion.p>
 
         <motion.div 
@@ -531,7 +531,7 @@ function CoupleSection() {
           >
             <h3>Our Story</h3>
             <p className="love-story">
-              Cả nhà ơi, giật mình chưa? Mai Yến chính thức "tạm biệt em yêu độc thân" vào ngày 14/6/2025.
+              Cả nhà ơi, giật mình chưa? Mai Yến chính thức "tạm biệt ngày tháng độc thân" vào ngày 14/6/2025.
                Nay Mai Yến đã sẵn sàng "chốt kèo" để phiêu lưu vào thế giới "có đôi có cặp". 
                Mời mọi người đến tiệc vui cùng Mai Yến và Tuấn Linh nha. Mãi yêu mọi người ❤️
             </p>

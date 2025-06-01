@@ -405,7 +405,9 @@ function Header() {
             onHoverStart={triggerConfetti}
             whileHover={{ scale: 1.05 }}
           >
-            Mai Yến & Tuấn Linh
+            Mai Yến 
+&
+ Tuấn Linh
           </motion.h1>
           <motion.div 
             className="title-decoration"
